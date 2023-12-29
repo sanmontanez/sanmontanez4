@@ -69,6 +69,14 @@ type PageDocumentDataSlicesSlice =
   | ImageCardsSlice
   | TextWithImageSlice;
 
+type PageDocumentDataSlices2Slice =
+  | TextSlice
+  | ImageSlice
+  | ImageCardsSlice
+  | TextWithImageSlice
+  | QuoteSlice
+  | HeroSlice;
+
 /**
  * Content for Page documents
  */
@@ -104,8 +112,7 @@ interface PageDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<PageDocumentDataSlicesSlice> /**
    * Meta Title field in *Page*
    *
    * - **Field Type**: Text
@@ -136,7 +143,16 @@ interface PageDocumentData {
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  meta_image: prismic.ImageField<never>;
+  meta_image: prismic.ImageField<never> /**
+   * Slice Zone field in *Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.slices2[]
+   * - **Tab**: AB
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */;
+  slices2: prismic.SliceZone<PageDocumentDataSlices2Slice>;
 }
 
 /**
@@ -661,7 +677,7 @@ declare module "@prismicio/client" {
   interface CreateClient {
     (
       repositoryNameOrEndpoint: string,
-      options?: prismic.ClientConfig
+      options?: prismic.ClientConfig,
     ): prismic.Client<AllDocumentTypes>;
   }
 
@@ -669,29 +685,42 @@ declare module "@prismicio/client" {
     export type {
       NavigationDocument,
       NavigationDocumentData,
+      NavigationDocumentDataLinksItem,
       PageDocument,
       PageDocumentData,
+      PageDocumentDataSlicesSlice,
+      PageDocumentDataSlices2Slice,
       SettingsDocument,
       SettingsDocumentData,
       AllDocumentTypes,
       HeroSlice,
+      HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
       ImageSlice,
+      ImageSliceDefaultPrimary,
+      ImageSliceBannerPrimary,
       ImageSliceVariation,
       ImageSliceDefault,
       ImageSliceBanner,
       ImageCardsSlice,
+      ImageCardsSliceDefaultPrimary,
+      ImageCardsSliceDefaultItem,
       ImageCardsSliceVariation,
       ImageCardsSliceDefault,
       QuoteSlice,
+      QuoteSliceDefaultPrimary,
       QuoteSliceVariation,
       QuoteSliceDefault,
       TextSlice,
+      TextSliceDefaultPrimary,
+      TextSliceTwoColumnsPrimary,
       TextSliceVariation,
       TextSliceDefault,
       TextSliceTwoColumns,
       TextWithImageSlice,
+      TextWithImageSliceDefaultPrimary,
+      TextWithImageSliceWithButtonPrimary,
       TextWithImageSliceVariation,
       TextWithImageSliceDefault,
       TextWithImageSliceWithButton,
